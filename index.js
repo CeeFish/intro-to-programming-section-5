@@ -4,7 +4,7 @@ const submitButton = document.getElementById('submit');
 const resetButton = document.getElementById('reset');
 const messages = document.getElementsByClassName('message');
 const notLowerThan = document.getElementById('not-lower-than-zero');
-const notGreaterThan = document.getElementById('not-higher-than-one-hundred')
+const notHigherThan = document.getElementById('not-higher-than-one-hundred')
 const tooHighMessage = document.getElementById('too-high');
 const tooLowMessage = document.getElementById('too-low');
 const maxGuessesMessage = document.getElementById('max-guesses');
@@ -44,7 +44,11 @@ function checkGuess() {
   }
 
   if (guess !== targetNumber) {
-    if (guess < targetNumber) {
+    if (guess <= 0) {
+      notLowerThan.style.display = '';
+    } else if (guess >=100) {
+      notHigherThan.style.display = '';j
+    } else if (guess < targetNumber) {
       tooLowMessage.style.display = '';
     } else {
       tooHighMessage.style.display = '';
@@ -53,8 +57,13 @@ function checkGuess() {
  const remainingAttempts = maxNumberOfAttempts - attempts;
 
     numberOfGuessesMessage.style.display = '';
+
+    if (remainingAttempts === 1) {
+      numberOfGuessesMessage.innerHTML = `You guessed ${guess}. <br> ${remainingAttempts} guess remaining`;
+    } else {
     numberOfGuessesMessage.innerHTML = `You guessed ${guess}. <br> ${remainingAttempts} guesses remaining`;
   }
+}
 
   if (attempts === maxNumberOfAttempts) {
     submitButton.disabled = true;
